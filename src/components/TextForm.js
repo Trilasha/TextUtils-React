@@ -1,0 +1,141 @@
+import React, {useState} from 'react'
+
+
+export default function TextForm(props) {
+
+    // without reloading the page, the function is being called
+  const handleUpClick=()=>{
+    // console.log("Uppercase was clicked" + text);
+    // setText("You have clicked on handleUpClick")
+    let newText = text.toUpperCase();
+    setText(newText);
+    props.showAlert("Converted to uppercase!","success");
+  }
+
+   
+   const handleLowClick=()=>{
+    let newText=text.toLowerCase();
+    setText(newText);
+    props.showAlert("Converted to lowercase!","success");
+   }
+
+
+   const handleClearText=()=>{
+    // console.log("On change");
+    setText('')
+    props.showAlert("Cleared the entire text!","success");
+  }
+
+  const handleOnChange=(event)=>{
+    // console.log("On change");
+    setText(event.target.value);
+  }
+
+  // const speak = () => {
+  //   let msg = new SpeechSynthesisUtterance();
+  //   msg.text = text;
+  //   window.speechSynthesis.speak(msg);
+  // }
+  //will not stop
+
+  const speak = () => {
+    let msg = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(msg);
+    const toogle = document.getElementById('toggle')
+    if (toogle.textContent == "Speak") {
+        toogle.innerHTML = "Stop"
+    }
+    else {
+        toogle.innerHTML = "Speak"
+        if (toogle.innerHTML = "Speak"){
+            window.speechSynthesis.cancel()
+        }
+    }
+}
+
+
+    // const handleExtraSpaces = ()=>{
+    //   let words = text.split(' ');
+    //   let joinedWords = '';
+    //   // console.log(words);
+    //   words.forEach((elem)=>{
+    //       if(elem[0] != undefined){
+    //           joinedWords += elem + " ";
+    //           console.log(joinedWords);
+    //       }
+    //   })
+    //   setText(joinedWords);
+    // }
+
+    
+    //alternative -->
+    //using rezux
+    const handleExtraSpaces = ()=>{
+      let newText = text.split(/[ ]+/);
+      setText(newText.join(" "))
+      props.showAlert("Extra spaces have been removed!","success");
+    }
+     
+
+    const handleCopy=()=>{
+      console.log("I am your copy");
+      var text=document.getElementById("myBox");
+      text.select();
+      navigator.clipboard.writeText(text.value);
+      props.showAlert("Copied to Clipboard!","success");
+    }
+ 
+
+
+
+  //text is a state variable
+
+
+  const [text, setText] = useState('');
+//   text="new text"; //wrong way to change the state 
+//  setText("new Text"); //correct way to change the state
+  return (
+    <>
+    <div className="container" style={{color: props.mode==='light'?'#042743':'white'}}>
+        <h1>{props.heading}</h1>
+      <div className="mb-3">
+        <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='light'?'white':'grey', color: props.mode==='light'?'#042743':'white'}} id="myBox" rows="8"></textarea>
+      </div>
+
+
+      {/* button.btn.btn-primary then enter */}
+      <button className="btn btn-primary mx-2" onClick={handleUpClick}>Convert to Uppercase</button>
+      <button className="btn btn-primary mx-2" onClick={handleLowClick}>Convert to Lowercase</button>
+      <button className="btn btn-primary mx-2" onClick={handleClearText}>Clear Text</button>
+      <button className="btn btn-primary mx-2" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+      <button className="btn btn-primary mx-2" onClick={handleCopy}>Make copy</button>
+      {/* <button type="submit" onClick={speak} className="btn btn-warning mx-2 my-2">Speak</button> */}
+      <button type="submit" onClick={speak} className="btn btn-warning mx-2 my-2" id="toggle">Speak</button>
+
+    </div>
+
+    {/* since only one can be returned so we have made a jsx fragment */}
+    {/* this will give margin of 2 along the y axis */}
+
+
+    <div className="container my-3"  style={{color: props.mode==='light'?'#042743':'white'}}>
+        <h2>Your text summary</h2>
+        <p>{text.split(" ").length} words and {text.length} characters</p>
+        <p>{0.008 * text.split(" ").length} Minutes required to read</p>
+        <h3>Preview</h3>
+        <p>{text.length>0?text:"Enter something in the above textbox to preview it here"}</p>
+    </div>
+
+    </>
+  )
+}
+
+
+
+
+
+
+
+
+//in this way we can change from lowercase to uppercase without reloading the page
+//mx-1, mx-2 are bootstrap classes that will give margin along x-axis
