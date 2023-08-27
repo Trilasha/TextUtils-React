@@ -3,56 +3,9 @@ import React, {useState}from 'react'
 export default function About(props) {
 
 
-
-    // let myStyle={
-    //     color: 'white',
-    //     backgroundColor: 'black'
-    // }
-
-   
-
-
-
-
-
-    //**********since the "Enable Dark Mode" button has been removed so we can remove these functions now
-    //now trying to make the myState variable-->a state variable to enable the dark mode thing 
-    // const [myStyle, setMyStyle]=useState({
-    //     color: 'black',
-    //     backgroundColor: 'white',
-        
-    // })
-
-    //learning how to use multiple states as well
-    // const[btntext, setBtnText]=useState("Enable Dark Mode")
-
-    // const toggleStyle=()=>{
-    //    if(myStyle.color=='white'){
-    //             setMyStyle({
-    //                 color: 'black',
-    //                 backgroundColor: 'white'
-    //             })
-    //             setBtnText("Enable Dark Mode");
-    //    }
-    //    else{
-    //             setMyStyle({
-    //                 color: 'white',
-    //                 backgroundColor: 'black',
-    //                 border: '1px solid white'
-    //             })
-    //             setBtnText("Enable Light Mode");
-    //        }
-    // }
-      // myStyle is a javascript object here 
-
-
-
-
   let myStyle = {
     color: props.mode ==='dark'?'white':'#042743',
     backgroundColor: props.mode === 'dark'?'rgb(36 74 104)':'white',
-    // border: '2px solid', 
-    // borderColor: props.mode==='dark'?'white':'#042743'
    }
   
   return (
@@ -91,15 +44,11 @@ export default function About(props) {
                 </h2>
                 <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div className="accordion-body">
-                {/* <code>.accordion-body</code> */}
                     This word counter software works in any browser such as Chrome, Firefix, Internet Explorer, Safari, Opera. It suits to count charactersvin facebook, blog, books, excel document, pdf document, essays, etc.
                 </div>
                 </div>
             </div>
             </div>
-            {/* <div className="container my-3">
-            <button onClick={toggleStyle}type="button" class="btn btn-primary">{btntext}</button>
-            </div> */}
     </div>
   )
 }
