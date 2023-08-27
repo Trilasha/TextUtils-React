@@ -2,11 +2,7 @@ import React, {useState} from 'react'
 
 
 export default function TextForm(props) {
-
-    // without reloading the page, the function is being called
   const handleUpClick=()=>{
-    // console.log("Uppercase was clicked" + text);
-    // setText("You have clicked on handleUpClick")
     let newText = text.toUpperCase();
     setText(newText);
     props.showAlert("Converted to uppercase!","success");
@@ -21,23 +17,13 @@ export default function TextForm(props) {
 
 
    const handleClearText=()=>{
-    // console.log("On change");
     setText('')
     props.showAlert("Cleared the entire text!","success");
   }
 
   const handleOnChange=(event)=>{
-    // console.log("On change");
     setText(event.target.value);
   }
-
-  // const speak = () => {
-  //   let msg = new SpeechSynthesisUtterance();
-  //   msg.text = text;
-  //   window.speechSynthesis.speak(msg);
-  // }
-  //will not stop
-
   const speak = () => {
     let msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
@@ -53,23 +39,6 @@ export default function TextForm(props) {
     }
 }
 
-
-    // const handleExtraSpaces = ()=>{
-    //   let words = text.split(' ');
-    //   let joinedWords = '';
-    //   // console.log(words);
-    //   words.forEach((elem)=>{
-    //       if(elem[0] != undefined){
-    //           joinedWords += elem + " ";
-    //           console.log(joinedWords);
-    //       }
-    //   })
-    //   setText(joinedWords);
-    // }
-
-    
-    //alternative -->
-    //using rezux
     const handleExtraSpaces = ()=>{
       let newText = text.split(/[ ]+/);
       setText(newText.join(" "))
@@ -88,13 +57,7 @@ export default function TextForm(props) {
  
 
 
-
-  //text is a state variable
-
-
   const [text, setText] = useState('');
-//   text="new text"; //wrong way to change the state 
-//  setText("new Text"); //correct way to change the state
   return (
     <>
     <div className="container" style={{color: props.mode==='light'?'#042743':'white'}}>
@@ -115,10 +78,6 @@ export default function TextForm(props) {
 
     </div>
 
-    {/* since only one can be returned so we have made a jsx fragment */}
-    {/* this will give margin of 2 along the y axis */}
-
-
     <div className="container my-3"  style={{color: props.mode==='light'?'#042743':'white'}}>
         <h2>Your text summary</h2>
         {/* making the necessary changes to remove some bugs */}
@@ -135,9 +94,3 @@ export default function TextForm(props) {
 
 
 
-
-
-
-
-//in this way we can change from lowercase to uppercase without reloading the page
-//mx-1, mx-2 are bootstrap classes that will give margin along x-axis
